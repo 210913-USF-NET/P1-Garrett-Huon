@@ -36,6 +36,11 @@ namespace StoreBL
 
         }
 
+        public Customer UpdateCust(Customer custToUpdate)
+        {
+            return _repo.UpdateCust(custToUpdate);
+        }
+
         //Products and Items
 
         public Product AddProduct(Product prod)
@@ -69,6 +74,11 @@ namespace StoreBL
         public ShopOrder AddOrder(ShopOrder order)
         {
             return _repo.AddOrder(order);
+        }
+
+        public LineItem AddLineItem(LineItem lineItem)
+        {
+            return _repo.AddLineItem(lineItem);
         }
 
         public List<ShopOrder> SearchForOrder(string queryStr)

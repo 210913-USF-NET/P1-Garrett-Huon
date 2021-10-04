@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Serilog;
 
@@ -9,11 +10,12 @@ namespace Models
     public class Customer
     {
 
-        public Customer()
+        public Customer(Customer customer)
         {
             
         }
-
+        public Customer(){ }
+        
         //Creating Customer Details
         public Customer(string name) : this()
         {
@@ -23,7 +25,13 @@ namespace Models
         {
             this.Email = email;
         }
+
+        
+
         private string _name;
+
+        [Required]
+        [RegularExpression("^[a-zA-Z_ ]+$", ErrorMessage ="Please enter name with valid characters")]
         public string Name 
         {
             get
@@ -32,7 +40,7 @@ namespace Models
             }
             set
             {
-                Regex npattern = new Regex("^[a-zA-Z]+$");
+                Regex npattern = new Regex("^[a-zA-Z ]+$");
                 if(value.Length == 0)
                 {
                     InputInvalidException n = new InputInvalidException("Name can't be empty");
@@ -51,6 +59,8 @@ namespace Models
 
         private string _email;
         
+        [Required]
+        [RegularExpression("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+/.[A-Z]{2,}\b", ErrorMessage = "Please enter valid email")]
         public string Email
         {
             get

@@ -92,6 +92,27 @@ namespace DL
             };
         }
 
+        public Customer UpdateCust(Customer custToUpdate)
+        {
+            Customer custUpdate = new Customer()
+            {
+                Id = custToUpdate.Id,
+                Name = custToUpdate.Name,
+                Email = custToUpdate.Email
+            };
+
+            custUpdate = _context.Customers.Update(custUpdate).Entity;
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+
+            return new Customer()
+            {
+                Id = custUpdate.Id,
+                Name = custUpdate.Name,
+                Email = custUpdate.Email
+            };
+        }
+
 
         //Product and Store Stuff
         /// <summary>
@@ -129,12 +150,12 @@ namespace DL
         /// </summary>
         /// <param name="queryStr"></param>
         /// <returns>Model.Product specified with Ch value</returns>
-        public List<Model.Product> ViewProducts(string queryStr)
+        public List<Product> ViewProducts(string queryStr)
         {
             return _context.Products.Where(
                 prod => prod.Ch.Contains(queryStr)
             ).Select(
-                r => new Model.Product()
+                r => new Product()
                 {
                     Id = r.Id,
                     Ch = r.Ch,
@@ -313,7 +334,34 @@ namespace DL
 
         }
 
-        
+        /// <summary>
+        /// Was used as temp Cart but now adds to Line Item Table
+        /// </summary>
+        /// <param name="cartItem"></param>
+        /// <returns>Model.LineItem</returns>
+        public LineItem AddLineItem(LineItem lineItem)
+        {
+            LineItem itemInCart = new LineItem()
+            {
+                Id = lineItem.Id,
+                Quant = lineItem.Quant,
+                StoreId = lineItem.StoreId,
+                ProdId = lineItem.ProdId
+            };
+            itemInCart = _context.Add(itemInCart).Entity;
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+
+            return new LineItem()
+            {
+                Id = itemInCart.Id,
+                Quant = itemInCart.Quant,
+                StoreId = itemInCart.StoreId,
+                ProdId = Convert.ToInt32(itemInCart.ProdId)
+            };
+        }
+
+
 
         //List<Customer> IRep.GetCustomers()
         //{

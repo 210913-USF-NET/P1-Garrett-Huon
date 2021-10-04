@@ -11,6 +11,7 @@ namespace DL
         
          List<Customer> SearchACustomer(string queryStr);
          Customer GetCustomerById(int id);
+        Customer UpdateCust(Customer custToUpdate);
 
          Product AddProduct(Product prod);
 
@@ -29,6 +30,6 @@ namespace DL
 
          ShopOrder GetOrderById(int id);
          List<ShopOrder> GetAllOrders();
-        
+        LineItem AddLineItem(LineItem lineItem);
     }
 }
