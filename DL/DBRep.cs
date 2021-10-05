@@ -115,6 +115,69 @@ namespace DL
 
 
         //Product and Store Stuff
+
+        public Store AddStore(Store store)
+        {
+            Store storeAdd = new Store()
+            {
+                Name = store.Name,
+                Email = store.Email,
+                Address = store.Address,
+                City = store.City,
+                State = store.State
+
+            };
+            storeAdd = _context.Add(storeAdd).Entity;
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+
+            return new Store()
+            {
+                Id = storeAdd.Id,
+                Name = storeAdd.Name,
+                Email = storeAdd.Email,
+                Address = storeAdd.Address,
+                City = storeAdd.City,
+                State = storeAdd.State
+
+            };
+        }
+
+        public List<Store> GetStores()
+        {
+            return _context.Stores.Select(
+                store => new Store()
+                {
+                    Id = store.Id,
+                    Name = store.Name,
+                    Email = store.Email,
+                    Address = store.Address,
+                    City = store.City,
+                    State = store.State
+                }
+            ).ToList();
+
+        }
+
+
+        public Store GetStoreById(int id)
+        {
+            Store storeById =
+                _context.Stores
+                .FirstOrDefault(r => r.Id == id);
+
+            return new Store()
+            {
+                Id = storeById.Id,
+                Name = storeById.Name,
+                Email = storeById.Email,
+                Address = storeById.Address,
+                City = storeById.City,
+                State = storeById.State
+
+            };
+        }
+
         /// <summary>
         /// Create New Product
         /// </summary>
@@ -134,7 +197,7 @@ namespace DL
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
 
-            return new Model.Product()
+            return new Product()
             {
                 Id = prodAdd.Id,
                 Ch = prodAdd.Ch,

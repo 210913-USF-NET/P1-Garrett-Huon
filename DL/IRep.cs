@@ -16,7 +16,10 @@ namespace DL
          Product AddProduct(Product prod);
 
         //Product Methods//
-         List<Product> ViewProducts(string queryStr);
+        Store AddStore(Store store);
+        List<Store> GetStores();
+        Store GetStoreById(int id);
+        List<Product> ViewProducts(string queryStr);
 
          Product GetProdById(int id);
          Product UpdateItem(Product itemToUpdate);

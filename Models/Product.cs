@@ -9,7 +9,7 @@ namespace Models
     {
         
         
-         public Product()
+         public Product(Product product)
         {
             
         }
@@ -26,6 +26,11 @@ namespace Models
             this.Ch = ch;
                
         }
+
+        public Product()
+        {
+        }
+
         public string ProdName {get; set;}
         public string Ch {get; set;}
         public int Id {get; set;}

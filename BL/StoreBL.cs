@@ -43,6 +43,20 @@ namespace StoreBL
 
         //Products and Items
 
+        public Store AddStore(Store store)
+        {
+            return _repo.AddStore(store);
+        }
+        public List<Store> GetStores()
+        {
+            return _repo.GetStores();
+        }
+
+        public Store GetStoreById(int id)
+        {
+            return _repo.GetStoreById(id);
+        }
+
         public Product AddProduct(Product prod)
         {
             return _repo.AddProduct(prod);

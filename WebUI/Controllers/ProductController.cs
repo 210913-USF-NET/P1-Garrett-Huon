@@ -1,97 +1,96 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using StoreBL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using StoreBL;
-using Models;
 
 namespace WebUI.Controllers
 {
-   
-    public class CustomerController : Controller
+    public class ProductController : Controller
     {
+
         private BLI _bl;
 
-        public CustomerController(BLI bl)
+        public ProductController(BLI bl)
         {
             _bl = bl;
         }
 
-        // GET: CustomerController
+        // GET: ProductController
         public ActionResult Index()
         {
-            List<Customer> allCust = _bl.GetCustomers();
-            return View(allCust);
+            List<Product> allProd = _bl.GetInventory();
+            return View(allProd);
         }
 
-        // GET: CustomerController/Details/5
+        // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: CustomerController/Create
+        // GET: ProductController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CustomerController/Create
+        // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Customer customer)
-        {
-            try
-            {
-                if(ModelState.IsValid)
-                {
-                    _bl.AddCustomers(customer);
-                    return RedirectToAction(nameof(Index));
-                }
-                return View();
-                
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CustomerController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View(new Customer(_bl.GetCustomerById(id)));
-        }
-
-        // POST: CustomerController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Customer customer)
+        public ActionResult Create(Product product)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _bl.UpdateCust(customer);
+                    _bl.AddProduct(product);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: ProductController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View(new Product(_bl.GetProdById(id)));
+        }
+
+        // POST: ProductController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, Product product)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _bl.UpdateItem(product);
                     return RedirectToAction(nameof(Index));
                 }
                 return RedirectToAction(nameof(Edit));
             }
             catch
             {
-                return RedirectToAction(nameof(Edit));
+                return View();
             }
         }
 
-        // GET: CustomerController/Delete/5
+        // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: CustomerController/Delete/5
+        // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

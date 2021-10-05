@@ -11,6 +11,9 @@ namespace StoreBL
         List<Customer> SearchACustomer(string queryStr);
         Customer GetCustomerById(int id);
         Customer UpdateCust(Customer custToUpdate);
+        Store AddStore(Store store);
+        public List<Store> GetStores();
+        public Store GetStoreById(int id);
         Product AddProduct(Product prod);
         List<Product> ViewProducts(string queryStr);
         Product GetProdById(int id);
