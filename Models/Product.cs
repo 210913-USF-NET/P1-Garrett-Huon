@@ -9,11 +9,13 @@ namespace Models
     {
         
         
-         public Product(Product product)
-        {
-            
-        }
+         public Product(Product product){}
 
+        public int StoreId { get; set; }
+        public Product(int storeid)
+        {
+            this.StoreId = storeid;
+        }
         //Creating Product Details
         public Product(string name) : this()
         {
@@ -34,7 +36,7 @@ namespace Models
         public string ProdName {get; set;}
         public string Ch {get; set;}
         public int Id {get; set;}
-         public int StoreId {get; set;}
+        
 
         private decimal _price;
         public decimal ProdPrice

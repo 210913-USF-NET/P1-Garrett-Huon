@@ -81,7 +81,7 @@ namespace Tests
                         Email = "Mary.Lamb@gmail.com"
                     },
 
-                    new sCustomer()
+                    new Customer()
                     {
                         Id = 2,
                         Name = "Clark",

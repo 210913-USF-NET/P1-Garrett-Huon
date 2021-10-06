@@ -60,7 +60,7 @@ namespace Models
         private string _email;
         
         [Required]
-        [RegularExpression("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+/.[A-Z]{2,}\b", ErrorMessage = "Please enter valid email")]
+        [RegularExpression("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", ErrorMessage = "Please enter valid email")]
         public string Email
         {
             get

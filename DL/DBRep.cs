@@ -162,20 +162,10 @@ namespace DL
 
         public Store GetStoreById(int id)
         {
-            Store storeById =
-                _context.Stores
+               return _context.Stores
+                .AsNoTracking()
+                .Include(r => r.Products)
                 .FirstOrDefault(r => r.Id == id);
-
-            return new Store()
-            {
-                Id = storeById.Id,
-                Name = storeById.Name,
-                Email = storeById.Email,
-                Address = storeById.Address,
-                City = storeById.City,
-                State = storeById.State
-
-            };
         }
 
         /// <summary>
@@ -245,8 +235,6 @@ namespace DL
                     ProdPrice = prod.ProdPrice,
                     ProdStock = prod.ProdStock,
                     StoreId = prod.StoreId
-
-
                 }
             ).ToList();
 
@@ -256,7 +244,7 @@ namespace DL
         {
             Product prodById =
                 _context.Products
-                .FirstOrDefault(r => r.Id == id);
+                .FirstOrDefault(r => r.StoreId == id);
 
             return new Product()
             {

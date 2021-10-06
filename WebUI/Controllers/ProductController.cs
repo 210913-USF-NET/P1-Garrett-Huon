@@ -20,10 +20,10 @@ namespace WebUI.Controllers
         }
 
         // GET: ProductController
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            List<Product> allProd = _bl.GetInventory();
-            return View(allProd);
+            
+            return View(new Store(_bl.GetStoreById(id)));
         }
 
         // GET: ProductController/Details/5
@@ -33,9 +33,11 @@ namespace WebUI.Controllers
         }
 
         // GET: ProductController/Create
-        public ActionResult Create()
+        public ActionResult Create(string storeId)
         {
-            return View();
+            int prodId = int.Parse(storeId);
+            ViewBag.Store = _bl.GetStoreById(prodId);
+            return View(new Product(prodId));
         }
 
         // POST: ProductController/Create
@@ -48,7 +50,7 @@ namespace WebUI.Controllers
                 if (ModelState.IsValid)
                 {
                     _bl.AddProduct(product);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", "Store", new {id = product.StoreId });
                 }
                 return View();
             }

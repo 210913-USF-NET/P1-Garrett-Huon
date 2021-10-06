@@ -1,10 +1,12 @@
-﻿@model IEnumerable<Models.Product>
+﻿@model Models.Store
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+           <h1>@Html.DisplayNameFor(model => model.Name)</h1><p>@Html.DisplayNameFor(model => model.Address)</p>
+<p>@Html.DisplayNameFor(model => model.City)</p><p>@Html.DisplayNameFor(model => model.State)</p><p>@Html.DisplayNameFor(model => model.Email)</p>
+<button type="button" class="btn btn-outline-secondary"><a class="text-dark" asp-controller="Product" asp-action="Create">Create New Product</a></button>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,40 +15,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProdName)
+                @Html.DisplayNameFor(model => model.Products[0].ProdName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ch)
+                @Html.DisplayNameFor(model => model.Products[0].ProdPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StoreId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProdPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProdStock)
+                @Html.DisplayNameFor(model => model.Products[0].ProdStock)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Products) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ProdName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ch)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StoreId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProdPrice)

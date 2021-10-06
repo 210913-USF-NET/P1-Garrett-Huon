@@ -2,15 +2,17 @@
 using DL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DL.Migrations
 {
     [DbContext(typeof(BoxDBContext))]
-    partial class BoxDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211005181803_StoreCreationAdded")]
+    partial class StoreCreationAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,8 +85,6 @@ namespace DL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StoreId");
-
                     b.ToTable("Products");
                 });
 
@@ -149,20 +149,6 @@ namespace DL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stores");
-                });
-
-            modelBuilder.Entity("Models.Product", b =>
-                {
-                    b.HasOne("Models.Store", null)
-                        .WithMany("Products")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Models.Store", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
