@@ -55,7 +55,7 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
           
       - name: Restore
-        run: dotnet restore ${{ env.WORKING_DIRECTORY }}
+        run: dotnet restore
         
       - name: Test
         run: dotnet test ${{ env.WORKING_DIRECTORY }} --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
