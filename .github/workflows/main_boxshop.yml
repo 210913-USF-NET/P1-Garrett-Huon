@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKING_DIRECTORY: C:\Users\Garrett\Documents\TrainerCode\P1-Garrett-Huon
+  WORKING_DIRECTORY: C:\Users\Garrett\Documents\TrainerCode\P1-Garrett-Huon\P1_Garrett_Huon.sln
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
