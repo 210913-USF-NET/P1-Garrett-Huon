@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  WORKING_DIRECTORY: TrainerCode/P1-Garrett-Huon
+  WORKING_DIRECTORY: P1-Garrett-Huon
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -53,12 +53,12 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      
+          
       - name: Restore
-        run: dotnet Restore ${{ env.WORKING_DIRECTORY }}
+        run: dotnet restore ${{ env.WORKING_DIRECTORY }}
         
       - name: Test
-        run: dotnet Test ${{ env.WORKING_DIRECTORY }} --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+        run: dotnet test ${{ env.WORKING_DIRECTORY }} --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
           
       - name: Build and analyze
         shell: powershell
