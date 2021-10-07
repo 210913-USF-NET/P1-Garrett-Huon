@@ -4,12 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-           <h1>@Html.DisplayNameFor(model => model.Name)</h1><p>@Html.DisplayNameFor(model => model.Address)</p>
-<p>@Html.DisplayNameFor(model => model.City)</p><p>@Html.DisplayNameFor(model => model.State)</p><p>@Html.DisplayNameFor(model => model.Email)</p>
-<button type="button" class="btn btn-outline-secondary"><a class="text-dark" asp-controller="Product" asp-action="Create">Create New Product</a></button>
+<h1>@Html.DisplayFor(model => model.Name)</h1>
+<p>@Html.DisplayFor(model => model.Address)</p>
+<p>@Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State)</p>
+<p>@Html.DisplayFor(model => model.Email)</p>
+
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button type="button" class="btn btn-outline-secondary"><a class="text-dark" asp-action="Create" asp-route-storeId="@Model.Id">Create New Product</a></button>
 </p>
 <table class="table">
     <thead>
@@ -47,3 +49,7 @@
 }
     </tbody>
 </table>
+<br />
+<div>
+    <a asp-controller="Store" asp-action="Index">Back to List</a>
+</div>

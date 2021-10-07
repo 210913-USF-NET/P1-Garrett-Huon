@@ -12,6 +12,7 @@ using StoreBL;
 using DL;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace WebUI
 {
     public class Startup
@@ -25,13 +26,16 @@ namespace WebUI
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        { 
             services.AddControllersWithViews();
             services.AddDbContext<BoxDBContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("BoxDB")));
 
             services.AddScoped<IRep, DBRep>();
             services.AddScoped<BLI, BL>();
+
+            services.AddHttpContextAccessor();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,7 @@ namespace WebUI
             app.UseRouting();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -14,6 +14,7 @@ namespace Models
         public Store(Store store)
         {
             this.Id = store.Id;
+            this.Name = store.Name;
             this.Address = store.Address;
             this.Email = store.Email;
             this.City = store.City;

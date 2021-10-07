@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using StoreBL;
 using Models;
+using DL;
+using Serilog;
 
 namespace WebUI.Controllers
 {
@@ -47,9 +49,24 @@ namespace WebUI.Controllers
             {
                 if(ModelState.IsValid)
                 {
+                    List<Customer> checkList = _bl.GetCustomers();
+                    bool check = checkList.Exists(x =>x.Name == customer.Name && x.Email == customer.Email);
+                    if(check == false)
+                    {
                     _bl.AddCustomers(customer);
-                    return RedirectToAction(nameof(Index));
+                    Log.Information("New Customer {customer} has been added.");
+                    HttpContext.Response.Cookies.Append("CustUser", customer.Id.ToString());
+                    HttpContext.Response.Cookies.Append("CustName", customer.Name);
+
+                    }
+                    if (check == true)
+                    {
+                        HttpContext.Response.Cookies.Append("CustUser", customer.Id.ToString());
+                        HttpContext.Response.Cookies.Append("CustName", customer.Name);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+                
                 return View();
                 
             }

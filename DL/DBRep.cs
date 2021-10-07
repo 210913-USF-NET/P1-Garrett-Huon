@@ -145,7 +145,9 @@ namespace DL
 
         public List<Store> GetStores()
         {
-            return _context.Stores.Select(
+            return _context.Stores
+                .Include("Products")
+                .Select(
                 store => new Store()
                 {
                     Id = store.Id,

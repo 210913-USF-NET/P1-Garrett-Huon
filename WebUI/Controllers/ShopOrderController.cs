@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Serilog;
-using StoreBL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,49 +7,34 @@ using System.Threading.Tasks;
 
 namespace WebUI.Controllers
 {
-    public class StoreController : Controller
+    public class ShopOrderController : Controller
     {
-        private BLI _bl;
-
-        public StoreController(BLI bl)
-        {
-            _bl = bl;
-        }
-
-
-        // GET: StoreController
+        // GET: ShopOrderController
         public ActionResult Index()
         {
-            List<Store> allStores = _bl.GetStores();
-            return View(allStores);
+            return View();
         }
 
-        // GET: StoreController/Details/5
+        // GET: ShopOrderController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: StoreController/Create
+        // GET: ShopOrderController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: StoreController/Create
+        // POST: ShopOrderController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Store store)
+        public ActionResult Create(IFormCollection collection)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    _bl.AddStore(store);
-                    Log.Information("The store {store} was created");
-                    return RedirectToAction(nameof(Index));
-                }
-                return View();
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -60,25 +42,20 @@ namespace WebUI.Controllers
             }
         }
 
-        // GET: StoreController/Edit/5
+        // GET: ShopOrderController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(new Product(_bl.GetProdById(id)));
+            return View();
         }
 
-        // POST: StoreController/Edit/5
+        // POST: ShopOrderController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Product product)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    _bl.UpdateItem(product);
-                    return RedirectToAction(nameof(Index));
-                }
-                return View();
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -86,13 +63,13 @@ namespace WebUI.Controllers
             }
         }
 
-        // GET: StoreController/Delete/5
+        // GET: ShopOrderController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: StoreController/Delete/5
+        // POST: ShopOrderController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

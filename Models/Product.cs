@@ -11,11 +11,11 @@ namespace Models
         
          public Product(Product product){}
 
-        public int StoreId { get; set; }
-        public Product(int storeid)
+        public Product(int storeId)
         {
-            this.StoreId = storeid;
+            this.StoreId = storeId;
         }
+        public int StoreId { get; set; }
         //Creating Product Details
         public Product(string name) : this()
         {

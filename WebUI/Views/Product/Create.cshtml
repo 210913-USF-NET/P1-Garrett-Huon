@@ -4,9 +4,10 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>@ViewBag.Store.Name</h1>
 
-<h4>Product</h4>
+<h4>Create Product</h4>
+<p>@ViewBag.Store.City, @ViewBag.Store.State</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -41,7 +42,7 @@
 </div>
 
 <div>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Store" asp-action="Index">Back to List</a>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

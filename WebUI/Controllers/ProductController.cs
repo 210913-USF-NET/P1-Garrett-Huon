@@ -22,8 +22,8 @@ namespace WebUI.Controllers
         // GET: ProductController
         public ActionResult Index(int id)
         {
-            
-            return View(new Store(_bl.GetStoreById(id)));
+            Store newStore = new Store(_bl.GetStoreById(id));
+            return View(newStore);
         }
 
         // GET: ProductController/Details/5
@@ -35,9 +35,9 @@ namespace WebUI.Controllers
         // GET: ProductController/Create
         public ActionResult Create(string storeId)
         {
-            int prodId = int.Parse(storeId);
-            ViewBag.Store = _bl.GetStoreById(prodId);
-            return View(new Product(prodId));
+            int shopId = int.Parse(storeId);
+            ViewBag.Store = _bl.GetStoreById(shopId);
+            return View(new Product(shopId));
         }
 
         // POST: ProductController/Create
