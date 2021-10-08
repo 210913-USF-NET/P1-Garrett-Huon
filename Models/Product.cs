@@ -9,34 +9,27 @@ namespace Models
     {
         
         
-         public Product(Product product){}
+         public Product(){}
 
         public Product(int storeId)
         {
             this.StoreId = storeId;
         }
-        public int StoreId { get; set; }
-        //Creating Product Details
-        public Product(string name) : this()
+        public Product(Product prod)
         {
-            this.ProdName = name;
-        }
-        public Product(string name, decimal price, int stock, string ch) : this(name)
-        {
-            this.ProdPrice = price;
-            this.ProdStock = stock;
-            this.Ch = ch;
-               
-        }
-
-        public Product()
-        {
+            this.Id = prod.Id;
+            this.Ch = prod.Ch;
+            this.ProdName = prod.ProdName;
+            this.ProdPrice = prod.ProdPrice;
+            this.ProdStock = prod.ProdStock;
+            this.StoreId = prod.StoreId;
         }
 
         public string ProdName {get; set;}
         public string Ch {get; set;}
         public int Id {get; set;}
-        
+        public int StoreId { get; set; }
+
 
         private decimal _price;
         public decimal ProdPrice

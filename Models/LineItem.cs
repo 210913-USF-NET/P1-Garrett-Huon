@@ -9,24 +9,18 @@ namespace Models
     public class LineItem
     {
 
-        public LineItem()
+        public LineItem() { }
+
+
+        public LineItem(LineItem lineitem) 
         {
+            this.Id = lineitem.Id;
+            this.Quant = lineitem.Quant;
+            this.StoreId = lineitem.StoreId;
+            this.ProdId = lineitem.ProdId;
 
         }
 
-
-        public LineItem(int quant) : this()
-        {
-            this.Quant = quant;
-
-        }
-
-        public LineItem(int quant, int storeid, int prodid) : this(quant)
-        {
-            this.StoreId = storeid;
-            this.ProdId = prodid;
-
-        }
         public int Id { get; set; }
         public int Quant { get; set; }
         public int StoreId { get; set; }

@@ -41,6 +41,11 @@ namespace StoreBL
             return _repo.UpdateCust(custToUpdate);
         }
 
+        public void RemoveCustomer(int id)
+        {
+            _repo.RemoveCustomer(id);
+        }
+
         //Products and Items
 
         public Store AddStore(Store store)
@@ -55,6 +60,15 @@ namespace StoreBL
         public Store GetStoreById(int id)
         {
             return _repo.GetStoreById(id);
+        }
+        public Store Updatestore(Store storeUpdate)
+        {
+            return _repo.Updatestore(storeUpdate);
+        }
+
+        public void RemoveStore(int id)
+        {
+            _repo.RemoveStore(id);
         }
 
         public Product AddProduct(Product prod)
@@ -78,11 +92,14 @@ namespace StoreBL
             return _repo.UpdateItem(itemToUpdate);
         }
 
-        
-
         public List<Product> GetInventory()
         {
             return _repo.GetInventory();
+        }
+
+        public  void RemoveItem(int id)
+        {
+            _repo.RemoveItem(id);
         }
 
         public ShopOrder AddOrder(ShopOrder order)
@@ -93,6 +110,11 @@ namespace StoreBL
         public LineItem AddLineItem(LineItem lineItem)
         {
             return _repo.AddLineItem(lineItem);
+        }
+
+        public List<LineItem> GetLineItems()
+        {
+            return _repo.GetLineItems();
         }
 
         public List<ShopOrder> SearchForOrder(string queryStr)

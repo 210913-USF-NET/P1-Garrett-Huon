@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DL;
+using Microsoft.AspNetCore.Routing;
 
 namespace WebUI.Controllers
 {
@@ -23,6 +25,7 @@ namespace WebUI.Controllers
         public ActionResult Index(int id)
         {
             Store newStore = new Store(_bl.GetStoreById(id));
+            HttpContext.Response.Cookies.Append("getId", id.ToString());
             return View(newStore);
         }
 
@@ -50,7 +53,7 @@ namespace WebUI.Controllers
                 if (ModelState.IsValid)
                 {
                     _bl.AddProduct(product);
-                    return RedirectToAction("Index", "Store", new {id = product.StoreId });
+                    return RedirectToAction(nameof(Index), new {id = product.StoreId });
                 }
                 return View();
             }
@@ -63,6 +66,7 @@ namespace WebUI.Controllers
         // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
+
             return View(new Product(_bl.GetProdById(id)));
         }
 
@@ -75,8 +79,10 @@ namespace WebUI.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var tempId = HttpContext.Request.Cookies["getId"];
+                    product.StoreId = Convert.ToInt32(tempId);
                     _bl.UpdateItem(product);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index), new { id = product.StoreId });
                 }
                 return RedirectToAction(nameof(Edit));
             }
@@ -89,7 +95,7 @@ namespace WebUI.Controllers
         // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(new Product(_bl.GetProdById(id)));
         }
 
         // POST: ProductController/Delete/5
@@ -99,6 +105,7 @@ namespace WebUI.Controllers
         {
             try
             {
+                _bl.RemoveItem(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

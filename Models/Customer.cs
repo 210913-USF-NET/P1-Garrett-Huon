@@ -10,20 +10,16 @@ namespace Models
     public class Customer
     {
 
-        public Customer(Customer customer)
-        {
-            
-        }
-        public Customer(){ }
+        public Customer()
+        {}
         
         //Creating Customer Details
-        public Customer(string name) : this()
+        public Customer(Customer customer)
         {
-            this.Name = name;
-        }
-        public Customer(string name, string email) : this(name)
-        {
-            this.Email = email;
+            this.Id = customer.Id;
+            this.Name = customer.Name;
+            this.Email = customer.Email;
+
         }
 
         

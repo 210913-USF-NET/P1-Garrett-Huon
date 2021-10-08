@@ -1,5 +1,4 @@
 ﻿@model Models.Product
-
 @{
     ViewData["Title"] = "Create";
 }
@@ -40,11 +39,6 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

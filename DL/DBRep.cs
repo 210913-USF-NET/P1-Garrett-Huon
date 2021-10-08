@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Model = Models;
-//using Entity = DL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
@@ -80,8 +79,8 @@ namespace DL
         public Customer GetCustomerById(int id)
         {
             Customer custById =
-                _context.Customers
-                .FirstOrDefault(r => r.Id == id);
+             _context.Customers
+             .FirstOrDefault(r => r.Id == id);
 
             return new Customer()
             {
@@ -111,6 +110,13 @@ namespace DL
                 Name = custUpdate.Name,
                 Email = custUpdate.Email
             };
+        }
+
+        public void RemoveCustomer(int id)
+        {
+            _context.Customers.Remove(GetCustomerById(id));
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
         }
 
 
@@ -161,6 +167,33 @@ namespace DL
 
         }
 
+        public Store Updatestore(Store storeUpdate)
+        {
+            Store storetoUpdate = new Store()
+            {
+                Id = storeUpdate.Id,
+                Name = storeUpdate.Name,
+                Email = storeUpdate.Email,
+                Address = storeUpdate.Address,
+                City = storeUpdate.City,
+                State = storeUpdate.State
+            };
+
+            storetoUpdate = _context.Stores.Update(storetoUpdate).Entity;
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+
+            return new Store()
+            {
+                Id = storetoUpdate.Id,
+                Name = storetoUpdate.Name,
+                Email = storetoUpdate.Email,
+                Address = storetoUpdate.Address,
+                City = storetoUpdate.City,
+                State = storetoUpdate.State
+            };
+        }
+
 
         public Store GetStoreById(int id)
         {
@@ -169,6 +202,16 @@ namespace DL
                 .Include(r => r.Products)
                 .FirstOrDefault(r => r.Id == id);
         }
+
+
+        public void RemoveStore(int id)
+        {
+            _context.Stores.Remove(GetStoreById(id));
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
+
+
 
         /// <summary>
         /// Create New Product
@@ -242,23 +285,21 @@ namespace DL
 
         }
 
+
         public Product GetProdById(int id)
         {
-            Product prodById =
-                _context.Products
-                .FirstOrDefault(r => r.StoreId == id);
-
-            return new Product()
-            {
-                Id = prodById.Id,
-                Ch = prodById.Ch,
-                ProdName = prodById.ProdName,
-                ProdPrice = prodById.ProdPrice,
-                ProdStock = prodById.ProdStock,
-                StoreId = prodById.StoreId
-
-            };
+            return _context.Products
+                .AsNoTracking()
+                .FirstOrDefault(r => r.Id == id);
         }
+
+        //public Product GetProdById(int id)
+        //{ 
+        //       return _context.Products
+        //        .AsNoTracking()
+        //        .FirstOrDefault(r => r.Id == id);
+
+        //}
 
         public Product UpdateItem(Product itemToUpdate)
         {
@@ -286,8 +327,15 @@ namespace DL
                 StoreId = itemUpdate.StoreId
             };
         }
-       
-    
+
+        public void RemoveItem(int id)
+        {
+            _context.Products.Remove(GetProdById(id));
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
+
+
         /// <summary>
         /// Creates new order
         /// </summary>
@@ -387,6 +435,13 @@ namespace DL
 
         }
 
+        public void RemoveOrder(int id)
+        {
+            _context.ShopOrders.Remove(GetOrderById(id));
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
+
         /// <summary>
         /// Was used as temp Cart but now adds to Line Item Table
         /// </summary>
@@ -414,21 +469,19 @@ namespace DL
             };
         }
 
-
-
-        //List<Customer> IRep.GetCustomers()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        List<Customer> IRep.SearchACustomer(string queryStr)
+        public List<LineItem> GetLineItems()
         {
-            throw new NotImplementedException();
-        }
+            return _context.LineItems.Select(
+                line => new LineItem()
+                {
+                    Id = line.Id,
+                    Quant = line.Quant,
+                    StoreId = line.StoreId,
+                    ProdId = line.ProdId
 
-        Customer IRep.GetCustomerById(int id)
-        {
-            throw new NotImplementedException();
+                }
+            ).ToList();
+
         }
     }
 }

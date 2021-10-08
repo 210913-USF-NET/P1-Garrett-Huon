@@ -105,7 +105,7 @@ namespace WebUI.Controllers
         // GET: CustomerController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(new Customer(_bl.GetCustomerById(id)));
         }
 
         // POST: CustomerController/Delete/5
@@ -115,6 +115,7 @@ namespace WebUI.Controllers
         {
             try
             {
+                _bl.RemoveCustomer(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
