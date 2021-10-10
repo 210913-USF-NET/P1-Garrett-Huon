@@ -33,11 +33,14 @@ namespace DL
         //OrderMethods//
         ShopOrder AddOrder(ShopOrder order);
 
-         List<ShopOrder> SearchForOrder(string queryStr);
+        List<ShopOrder> SearchForOrder(string queryStr);
 
-         ShopOrder GetOrderById(int id);
-         List<ShopOrder> GetAllOrders();
+        ShopOrder GetOrderById(int id);
+        List<ShopOrder> GetAllOrders();
+        void RemoveOrder(int id);
         LineItem AddLineItem(LineItem lineItem);
         List<LineItem> GetLineItems();
+        LineItem GetLineById(int id);
+        void RemoveLineItem(int id);
     }
 }

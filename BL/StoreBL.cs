@@ -117,6 +117,16 @@ namespace StoreBL
             return _repo.GetLineItems();
         }
 
+        public LineItem GetLineById(int id)
+        {
+            return _repo.GetLineById(id);
+        }
+
+        public void RemoveLineItem(int id)
+        {
+            _repo.RemoveItem(id);
+        }
+
         public List<ShopOrder> SearchForOrder(string queryStr)
         {
             return _repo.SearchForOrder(queryStr);
@@ -131,6 +141,14 @@ namespace StoreBL
         {
             return _repo.GetAllOrders();
         }
-      
+
+        public void RemoveOrder(int id)
+        {
+            _repo.RemoveItem(id);
+        }
+
+
+
+
     }
 }

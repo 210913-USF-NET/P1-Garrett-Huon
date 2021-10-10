@@ -5,31 +5,31 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
+<h1></h1>
+<p></p>
 <h4>LineItem</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="StoreId" type="hidden" class="form-control" />
             <input asp-for="ProdId" type="hidden" class="form-control" />
+            <input asp-for="StoreId" type="hidden" class="form-control" />
             <div class="form-group">
                 <label asp-for="Quant" class="control-label"></label>
                 <input asp-for="Quant" class="form-control" />
                 <span asp-validation-for="Quant" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="StoreId" class="control-label"></label>
-                <input asp-for="StoreId" class="form-control" />
-                <span asp-validation-for="StoreId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProdId" class="control-label"></label>
-                <input asp-for="ProdId" class="form-control" />
-                <span asp-validation-for="ProdId" class="text-danger"></span>
-            </div>*@
+            <label asp-for="StoreId" class="control-label"></label>
+            <input asp-for="StoreId" class="form-control" />
+            <span asp-validation-for="StoreId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProdId" class="control-label"></label>
+            <input asp-for="ProdId" class="form-control" />
+            <span asp-validation-for="ProdId" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

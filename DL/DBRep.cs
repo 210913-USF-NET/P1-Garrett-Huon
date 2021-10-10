@@ -483,5 +483,28 @@ namespace DL
             ).ToList();
 
         }
+
+        public LineItem GetLineById(int id)
+        {
+            LineItem LineById =
+                _context.LineItems
+                .FirstOrDefault(r => r.Id == id);
+
+            return new LineItem()
+            {
+                Id = LineById.Id,
+                Quant = LineById.Quant,
+                StoreId = LineById.StoreId,
+                ProdId = LineById.ProdId
+
+            };
+        }
+
+        public void RemoveLineItem(int id)
+        {
+            _context.LineItems.Remove(GetLineById(id));
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
     }
 }

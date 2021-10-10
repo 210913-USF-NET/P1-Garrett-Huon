@@ -23,12 +23,14 @@ namespace Models
             this.ProdPrice = prod.ProdPrice;
             this.ProdStock = prod.ProdStock;
             this.StoreId = prod.StoreId;
+            this.LineItems = prod.LineItems;
         }
 
         public string ProdName {get; set;}
         public string Ch {get; set;}
         public int Id {get; set;}
         public int StoreId { get; set; }
+        public List<LineItem> LineItems { get; set; }
 
 
         private decimal _price;

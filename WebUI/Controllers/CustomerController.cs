@@ -57,6 +57,7 @@ namespace WebUI.Controllers
                     Log.Information("New Customer {customer} has been added.");
                     HttpContext.Response.Cookies.Append("CustUser", customer.Id.ToString());
                     HttpContext.Response.Cookies.Append("CustName", customer.Name);
+                        return RedirectToAction("Index", "Home");
 
                     }
                     if (check == true)

@@ -17,10 +17,11 @@ namespace WebUI.Controllers
         {
             _bl = bl;
         }
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            TempCartVM.Display();
-            return View();
+            Product newLine = new Product(_bl.GetProdById(id));
+            HttpContext.Response.Cookies.Append("prodId", id.ToString());
+            return View(newLine);
         }
 
         // GET: LineItemController/Details/5
@@ -30,9 +31,11 @@ namespace WebUI.Controllers
         }
 
         // GET: LineItemController/Create
-        public ActionResult Create()
+        public ActionResult Create(string prodId)
         {
-            return View();
+            int prId = int.Parse(prodId);
+            ViewBag.Product = _bl.GetProdById(prId);
+            return View(new LineItem(prId));
         }
 
         // POST: LineItemController/Create
@@ -40,14 +43,18 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(LineItem lineItem)
         {
+            var storeId = HttpContext.Request.Cookies["getId"];
+            int sId = int.Parse(storeId);
+            lineItem.StoreId = sId;
             try
             {
+
                 if (ModelState.IsValid)
                 {
-
-                    TempCartVM.Record(lineItem.ToString());
-                    return RedirectToAction(nameof(Index));
+                    _bl.AddLineItem(lineItem);
+                    return RedirectToAction("Index", "Product", new { id = lineItem.StoreId });
                 }
+
                 return View();
             }
             catch
@@ -80,16 +87,17 @@ namespace WebUI.Controllers
         // GET: LineItemController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(new LineItem(_bl.GetLineById(id)));
         }
 
         // POST: LineItemController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, LineItem lineItem)
         {
             try
             {
+                _bl.RemoveLineItem(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

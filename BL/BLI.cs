@@ -27,8 +27,11 @@ namespace StoreBL
         List<ShopOrder> SearchForOrder(string queryStr);
         ShopOrder GetOrderById(int id);
         List<ShopOrder> GetAllOrders();
+        void RemoveOrder(int id);
         LineItem AddLineItem(LineItem lineItem);
         List<LineItem> GetLineItems();
+        LineItem GetLineById(int id);
+        void RemoveLineItem(int id);
     }
         
 }

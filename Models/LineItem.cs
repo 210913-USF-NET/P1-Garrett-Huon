@@ -11,6 +11,10 @@ namespace Models
 
         public LineItem() { }
 
+        public LineItem(int prodId)
+        {
+            this.ProdId = prodId;
+        }
 
         public LineItem(LineItem lineitem) 
         {
@@ -25,6 +29,7 @@ namespace Models
         public int Quant { get; set; }
         public int StoreId { get; set; }
         public int ProdId { get; set; }
+        
 
 
 

@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
-
-
+    @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+    
 }
 
 <h1>@Html.DisplayFor(model => model.Name)</h1>
@@ -31,24 +31,26 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Products) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProdName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProdPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProdStock)
-            </td>
-            <td>
-                @Html.ActionLink("Add to Cart", "Create", "LineItem", new { id = item.Id }) |
-                @Html.ActionLink("Edit", "Edit", "Product", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdStock)
+                </td>
+                <td>
+                    <a class="text-dark" asp-Controller="LineItem" asp-action="Create" asp-route-prodId="@item.Id">Create New Product</a>
+                    @Html.ActionLink("Add to Cart", "Create", "LineItem", new { id = item.Id }) |
+                    @Html.ActionLink("Edit", "Edit", "Product", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <br />
