@@ -82,7 +82,7 @@ namespace WebUI.Controllers
                return RedirectToAction("Index", "Store");
                 
             }
-            catch (Exception e)
+            catch
             {
                 return View();
             }

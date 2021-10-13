@@ -41,7 +41,7 @@ namespace Tests
 
         [Theory]
         [InlineData (-1)]
-        [InlineData(1.5)]
+       
         public void ProductStockShouldNotBeInvalidNumber(int input)
         {
             Product test = new Product();
