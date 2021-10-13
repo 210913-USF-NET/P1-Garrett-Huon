@@ -3,21 +3,38 @@ using System;
 using DL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DL.Migrations
 {
     [DbContext(typeof(BoxDBContext))]
-    partial class BoxDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211012204847_shoppingcart")]
+    partial class shoppingcart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("LineItemProduct", b =>
+                {
+                    b.Property<int>("LineItemsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("LineItemsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("LineItemProduct");
+                });
 
             modelBuilder.Entity("Models.Cart", b =>
                 {
@@ -73,7 +90,7 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("CartId")
                         .HasColumnType("integer");
 
                     b.Property<int>("ProdId")
@@ -89,6 +106,8 @@ namespace DL.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("ShopOrderId");
 
@@ -145,8 +164,11 @@ namespace DL.Migrations
                     b.Property<decimal>("Cost")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("CustomerEmail")
-                        .HasColumnType("text");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LineItemId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Payment")
                         .HasColumnType("text");
@@ -189,8 +211,27 @@ namespace DL.Migrations
                     b.ToTable("Stores");
                 });
 
+            modelBuilder.Entity("LineItemProduct", b =>
+                {
+                    b.HasOne("Models.LineItem", null)
+                        .WithMany()
+                        .HasForeignKey("LineItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Models.LineItem", b =>
                 {
+                    b.HasOne("Models.Cart", null)
+                        .WithMany("LineItems")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("Models.ShopOrder", null)
                         .WithMany("LineList")
                         .HasForeignKey("ShopOrderId");
@@ -211,6 +252,8 @@ namespace DL.Migrations
 
             modelBuilder.Entity("Models.Cart", b =>
                 {
+                    b.Navigation("LineItems");
+
                     b.Navigation("Products");
                 });
 

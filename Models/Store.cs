@@ -41,26 +41,6 @@ namespace Models
         public string State { get; set; }
 
         public List<Product> Products { get; set; }
-    //    public Store ToView()
-    //    {
-    //        Store newStore;
-    //        try
-    //        {
-    //            newStore = new Store
-    //            {
-    //                Id = this.Id,
-    //                Email = this.Email,
-    //                Address = this.Address,
-    //                City = this.City,
-    //                State = this.State
-    //            };
-
-    //        }
-    //        catch
-    //        {
-    //            throw;
-    //        }
-    //        return newStore;
-    //    }
+   
     }
 }

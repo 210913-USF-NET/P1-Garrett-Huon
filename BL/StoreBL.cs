@@ -2,6 +2,7 @@
 using Models;
 using DL;
 using System;
+using System.Data;
 
 namespace StoreBL
 {
@@ -122,6 +123,11 @@ namespace StoreBL
             return _repo.GetLineById(id);
         }
 
+        public List<LineItem> GetLineByOrderId(int id)
+        {
+            return _repo.GetLineByOrderId(id);
+        }
+
         public void RemoveLineItem(int id)
         {
             _repo.RemoveItem(id);
@@ -147,8 +153,25 @@ namespace StoreBL
             _repo.RemoveItem(id);
         }
 
+        public Cart AddtoCart(Cart cart)
+        {
+            return _repo.AddtoCart(cart);
+        }
+        public List<Cart> GetCart()
+        {
+            return _repo.GetCart();
+        }
+            public Cart GetCartItemById(int id)
+        {
+            return _repo.GetCartItemById(id);
+        }
+
+        public void RemoveCartItem(int id)
+        {
+            _repo.RemoveCartItem(id);
+        }
 
 
 
-    }
+        }
 }

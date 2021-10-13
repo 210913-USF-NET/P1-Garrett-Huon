@@ -36,12 +36,16 @@ namespace Models
             }
             set
             {
-                Regex npattern = new Regex("^[a-zA-Z ]+$");
+                Regex npattern = new Regex("^[a-zA-Z_ ]+$");
                 if(value.Length == 0)
                 {
                     InputInvalidException n = new InputInvalidException("Name can't be empty");
                     Log.Warning(n.Message);
                     throw n;
+                }
+                else if (!npattern.IsMatch(value))
+                {
+                    throw new InputInvalidException("Name must use Valid Characters");
                 }
                 else
                 {
@@ -65,11 +69,16 @@ namespace Models
             }
             set
             {
-                if(value.Length == 0)
+                Regex pattern = new Regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
+                if (value.Length == 0)
                 {
                     InputInvalidException e = new InputInvalidException("Email can't be empty");
                     Log.Warning(e.Message);
                     throw e;
+                }
+                else if (!pattern.IsMatch(value))
+                {
+                    throw new InputInvalidException("Must Use Valid Email");
                 }
                 else
                 {

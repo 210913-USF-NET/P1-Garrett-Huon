@@ -41,6 +41,11 @@ namespace DL
         LineItem AddLineItem(LineItem lineItem);
         List<LineItem> GetLineItems();
         LineItem GetLineById(int id);
+        List<LineItem> GetLineByOrderId(int id);
         void RemoveLineItem(int id);
+        Cart AddtoCart(Cart cart);
+        List<Cart> GetCart();
+        Cart GetCartItemById(int id);
+        void RemoveCartItem(int id);
     }
 }

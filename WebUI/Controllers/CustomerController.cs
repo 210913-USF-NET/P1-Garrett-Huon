@@ -55,14 +55,14 @@ namespace WebUI.Controllers
                     {
                     _bl.AddCustomers(customer);
                     Log.Information("New Customer {customer} has been added.");
-                    HttpContext.Response.Cookies.Append("CustUser", customer.Id.ToString());
+                    HttpContext.Response.Cookies.Append("CustUser", customer.Email.ToString());
                     HttpContext.Response.Cookies.Append("CustName", customer.Name);
                         return RedirectToAction("Index", "Home");
 
                     }
                     if (check == true)
                     {
-                        HttpContext.Response.Cookies.Append("CustUser", customer.Id.ToString());
+                        HttpContext.Response.Cookies.Append("CustUser", customer.Email);
                         HttpContext.Response.Cookies.Append("CustName", customer.Name);
                         return RedirectToAction("Index", "Home");
                     }
@@ -112,11 +112,11 @@ namespace WebUI.Controllers
         // POST: CustomerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Customer customer)
         {
             try
             {
-                _bl.RemoveCustomer(id);
+                _bl.RemoveCustomer(customer.Id);
                 return RedirectToAction(nameof(Index));
             }
             catch

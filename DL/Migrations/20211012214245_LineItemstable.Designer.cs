@@ -3,15 +3,17 @@ using System;
 using DL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DL.Migrations
 {
     [DbContext(typeof(BoxDBContext))]
-    partial class BoxDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211012214245_LineItemstable")]
+    partial class LineItemstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,7 +75,7 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("CartId")
                         .HasColumnType("integer");
 
                     b.Property<int>("ProdId")
@@ -89,6 +91,8 @@ namespace DL.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("ShopOrderId");
 
@@ -145,8 +149,11 @@ namespace DL.Migrations
                     b.Property<decimal>("Cost")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("CustomerEmail")
-                        .HasColumnType("text");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LineItemId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Payment")
                         .HasColumnType("text");
@@ -191,6 +198,10 @@ namespace DL.Migrations
 
             modelBuilder.Entity("Models.LineItem", b =>
                 {
+                    b.HasOne("Models.Cart", null)
+                        .WithMany("LineItems")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("Models.ShopOrder", null)
                         .WithMany("LineList")
                         .HasForeignKey("ShopOrderId");
@@ -211,6 +222,8 @@ namespace DL.Migrations
 
             modelBuilder.Entity("Models.Cart", b =>
                 {
+                    b.Navigation("LineItems");
+
                     b.Navigation("Products");
                 });
 

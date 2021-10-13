@@ -22,6 +22,8 @@ namespace Models
             this.Quant = lineitem.Quant;
             this.StoreId = lineitem.StoreId;
             this.ProdId = lineitem.ProdId;
+            this.OrderId = lineitem.OrderId;
+            
 
         }
 
@@ -29,7 +31,9 @@ namespace Models
         public int Quant { get; set; }
         public int StoreId { get; set; }
         public int ProdId { get; set; }
-        
+        public int OrderId { get; set; }
+
+
 
 
 

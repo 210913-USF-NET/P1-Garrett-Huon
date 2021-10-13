@@ -101,12 +101,12 @@ namespace WebUI.Controllers
         // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Product product)
         {
             try
             {
                 _bl.RemoveItem(id);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = product.StoreId });
             }
             catch
             {

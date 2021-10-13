@@ -80,7 +80,8 @@ namespace DL
         {
             Customer custById =
              _context.Customers
-             .FirstOrDefault(r => r.Id == id);
+             .FirstOrDefault(r => r.Id == id)
+             ;
 
             return new Customer()
             {
@@ -114,7 +115,8 @@ namespace DL
 
         public void RemoveCustomer(int id)
         {
-            _context.Customers.Remove(GetCustomerById(id));
+            Customer c = _context.Customers.FirstOrDefault(x =>x.Id == id);
+            _context.Customers.Remove(c);
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
         }
@@ -293,13 +295,6 @@ namespace DL
                 .FirstOrDefault(r => r.Id == id);
         }
 
-        //public Product GetProdById(int id)
-        //{ 
-        //       return _context.Products
-        //        .AsNoTracking()
-        //        .FirstOrDefault(r => r.Id == id);
-
-        //}
 
         public Product UpdateItem(Product itemToUpdate)
         {
@@ -330,7 +325,8 @@ namespace DL
 
         public void RemoveItem(int id)
         {
-            _context.Products.Remove(GetProdById(id));
+            Product c = _context.Products.FirstOrDefault(x => x.Id == id);
+            _context.Products.Remove(c);
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
         }
@@ -350,8 +346,7 @@ namespace DL
                 City = order.City,
                 State = order.State,
                 Payment = order.Payment,
-                CustomerId = order.CustomerId,
-                LineItemId = order.LineItemId,
+                CustomerEmail = order.CustomerEmail,
                 Cost = order.Cost
             };
             orderAdd = _context.Add(orderAdd).Entity;
@@ -365,8 +360,7 @@ namespace DL
                 City = order.City,
                 State = order.State,
                 Payment = order.Payment,
-                CustomerId = order.CustomerId,
-                LineItemId = order.LineItemId,
+                CustomerEmail = order.CustomerEmail,
                 Cost = order.Cost
             };
         }
@@ -376,7 +370,7 @@ namespace DL
         public List<Model.ShopOrder> SearchForOrder(string queryStr)
         {
             return _context.ShopOrders.Where(
-                order =>order.Address.Contains(queryStr)|| order.Payment.Contains(queryStr)|| order.City.Contains(queryStr)|| order.State.Contains(queryStr)
+                order => order.Address.Contains(queryStr) || order.Payment.Contains(queryStr) || order.City.Contains(queryStr) || order.State.Contains(queryStr)
             ).Select(
                 r => new Model.ShopOrder()
                 {
@@ -385,8 +379,7 @@ namespace DL
                     City = r.City,
                     State = r.State,
                     Payment = r.Payment,
-                    CustomerId = Convert.ToInt32(r.CustomerId),
-                    LineItemId = Convert.ToInt32(r.LineItemId),
+                    CustomerEmail = r.CustomerEmail,
                     Cost = r.Cost
 
                 }
@@ -406,8 +399,7 @@ namespace DL
                     City = orderById.City,
                     State = orderById.State,
                     Payment = orderById.Payment,
-                    CustomerId = Convert.ToInt32(orderById.CustomerId),
-                    LineItemId = Convert.ToInt32(orderById.LineItemId),
+                    CustomerEmail = orderById.CustomerEmail,
                     Cost = orderById.Cost
 
             };
@@ -425,8 +417,7 @@ namespace DL
                     City = ord.City,
                     State = ord.State,
                     Payment = ord.Payment,
-                    CustomerId = Convert.ToInt32(ord.CustomerId),
-                    LineItemId = Convert.ToInt32(ord.LineItemId),
+                    CustomerEmail = ord.CustomerEmail,
                     Cost = ord.Cost
 
 
@@ -500,11 +491,96 @@ namespace DL
             };
         }
 
+        public List<LineItem> GetLineByOrderId(int id)
+        {
+            return _context.LineItems.Where(l => l.OrderId == id).Select(i => new LineItem()).ToList();
+        }
+
+
         public void RemoveLineItem(int id)
         {
             _context.LineItems.Remove(GetLineById(id));
             _context.SaveChanges();
             _context.ChangeTracker.Clear();
         }
+
+        public List<Cart> GetCart()
+        {
+            return _context.Carts.Select(
+                cart => new Cart()
+                {
+                    Id = cart.Id,
+                    Name = cart.Name,
+                    Quant = cart.Quant,
+                    UnitPrice = cart.UnitPrice,
+                    UnitTotal = cart.UnitTotal,
+                    ProdId = cart.ProdId
+                    
+
+                }
+            ).ToList();
+
+        }
+
+        public Cart AddtoCart(Cart cart)
+        {
+            Cart itemInCart = new Cart()
+            {
+                Id = cart.Id,
+                Name = cart.Name,
+                Quant = cart.Quant,
+                UnitPrice = cart.UnitPrice,
+                UnitTotal = cart.UnitTotal,
+                ProdId = cart.ProdId
+                
+            };
+
+            itemInCart = _context.Add(itemInCart).Entity;
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+
+            return new Cart()
+            {
+                Id = itemInCart.Id,
+                Name = itemInCart.Name,
+                Quant = itemInCart.Quant,
+                UnitPrice = itemInCart.UnitPrice,
+                UnitTotal = itemInCart.UnitTotal,
+                ProdId = itemInCart.ProdId
+                
+            };
+        }
+
+        public Cart GetCartItemById(int id)
+        {
+            Cart cart =
+                _context.Carts
+                .FirstOrDefault(r => r.Id == id);
+
+            return new Cart()
+            {
+                Id = cart.Id,
+                Name = cart.Name,
+                Quant = cart.Quant,
+                UnitPrice = cart.UnitPrice,
+                UnitTotal = cart.UnitTotal,
+                ProdId = cart.ProdId
+                
+
+            };
+        }
+
+        public void RemoveCartItem(int id)
+        {
+            Cart c = _context.Carts.FirstOrDefault(x => x.Id == id);
+            _context.Carts.Remove(c);
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+        }
+
+        
+
+
+
     }
 }

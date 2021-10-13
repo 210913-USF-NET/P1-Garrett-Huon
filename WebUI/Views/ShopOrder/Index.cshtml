@@ -31,10 +31,7 @@
                 @Html.DisplayNameFor(model => model.Payment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LineItemId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerId)
+                @Html.DisplayNameFor(model => model.CustomerEmail)
             </th>
             <th></th>
         </tr>
@@ -61,10 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Payment)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LineItemId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerId)
+                @Html.DisplayFor(modelItem => item.CustomerEmail)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

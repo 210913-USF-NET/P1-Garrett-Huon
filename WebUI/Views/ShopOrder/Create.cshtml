@@ -1,7 +1,8 @@
 ﻿@model Models.ShopOrder
-
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Create";
+    var cost = HttpContextAccessor.HttpContext.Request.Cookies["Cost"];
 }
 
 <h1>Create</h1>
@@ -12,11 +13,8 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Cost" class="control-label"></label>
-                <input asp-for="Cost" class="form-control" />
-                <span asp-validation-for="Cost" class="text-danger"></span>
-            </div>
+            <input asp-for="CustomerEmail" type="hidden" class="form-control" />
+            <input asp-for="Cost" type="hidden" class="form-control" />
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
@@ -38,14 +36,8 @@
                 <span asp-validation-for="Payment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LineItemId" class="control-label"></label>
-                <input asp-for="LineItemId" class="form-control" />
-                <span asp-validation-for="LineItemId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <input asp-for="CustomerId" class="form-control" />
-                <span asp-validation-for="CustomerId" class="text-danger"></span>
+                <label asp-for="Cost" class="control-label"></label>
+                <h3>@cost</h3>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

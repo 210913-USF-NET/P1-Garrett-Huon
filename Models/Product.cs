@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Serilog;
 
@@ -23,14 +24,13 @@ namespace Models
             this.ProdPrice = prod.ProdPrice;
             this.ProdStock = prod.ProdStock;
             this.StoreId = prod.StoreId;
-            this.LineItems = prod.LineItems;
+            
         }
 
         public string ProdName {get; set;}
         public string Ch {get; set;}
         public int Id {get; set;}
         public int StoreId { get; set; }
-        public List<LineItem> LineItems { get; set; }
 
 
         private decimal _price;
@@ -59,6 +59,8 @@ namespace Models
                 }
             }
         }
+        [Required]
+        [System.ComponentModel.DataAnnotations.RegularExpression("^[0-9]+[^ .]$", ErrorMessage = "Stock must be whole number")]
         private int _stock;
         public int ProdStock
         {
@@ -72,6 +74,10 @@ namespace Models
                     InputInvalidException s = new InputInvalidException("Value cannot be below zero.");
                     Log.Warning(s.Message);
                     throw s;
+                }
+                else if (!pattern.IsMatch(value.ToString()))
+                {
+                    throw new InputInvalidException("Stock must be whole number");
                 }
                 else
                 {

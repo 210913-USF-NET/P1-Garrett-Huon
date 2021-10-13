@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Models.Cart>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Index";
+    decimal totalCost = 0;
+    
+
+}
+<h1>Index</h1>
+
+<p>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitTotal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            totalCost += item.UnitTotal;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quant)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitTotal)
+                </td>
+                <td>
+                    @Html.ActionLink("Remove", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tr>
+        <td colspan="3">
+            <h4>Total:</h4>
+        </td>
+        <td>@totalCost</td>
+    </tr>
+</table>
+@{ 
+    HttpContextAccessor.HttpContext.Response.Cookies.Append("Cost",totalCost.ToString());
+}
+<a class="btn btn-success" asp-action="Create" asp-controller="ShopOrder">Go To Checkout</a>
+@*<a class="btn btn-success" asp-controller="ShopOrder" asp-action="Create" >Go To Checkout</a>*@

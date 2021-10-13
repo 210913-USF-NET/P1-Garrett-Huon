@@ -44,8 +44,7 @@
                     @Html.DisplayFor(modelItem => item.ProdStock)
                 </td>
                 <td>
-                    <a class="text-dark" asp-Controller="LineItem" asp-action="Create" asp-route-prodId="@item.Id">Create New Product</a>
-                    @Html.ActionLink("Add to Cart", "Create", "LineItem", new { id = item.Id }) |
+                    <a class="text-primary" asp-Controller="ShoppingCart" asp-action="Create" asp-route-prodId="@item.Id">Add to Cart</a> |
                     @Html.ActionLink("Edit", "Edit", "Product", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>

@@ -15,6 +15,17 @@ namespace Models
         }
 
         //Creating Customer Details
+
+        public ShopOrder(ShopOrder order)
+        {
+            this.Address = order.Address;
+            this.City = order.City;
+            this.State = order.State;
+            this.Payment = order.Payment;
+            this.Cost = order.Cost;
+            this.CustomerEmail = order.CustomerEmail;
+            this.LineList = order.LineList;
+        }
         public ShopOrder(string address) : this()
         {
             this.Address = address;
@@ -41,6 +52,10 @@ namespace Models
                     Log.Warning(c.Message);
                     throw c;
                 }
+                else if (!pattern.IsMatch(Convert.ToString(value)))
+                {
+                    throw new InputInvalidException("Enter Correct Payment Amount");
+                }
                 else
                 {
                     _cost = value;
@@ -55,17 +70,18 @@ namespace Models
         public string City {get; set;}
         public string State {get; set;}
         public string Payment {get; set;}
-        public int LineItemId {get; set;}
-        public int CustomerId {get; set;}
+        public string CustomerEmail {get; set;}
+
+        public List<LineItem> LineList {get; set;}
 
 
-        public override string ToString()
+    public override string ToString()
         {
-            return $"Id: {this.Id}, Address = {this.Address},City = {this.City}, State = {this.State}, Payment = {this.Payment}, Cost = {this.Cost}, LineItemId = {this.LineItemId}, CustomerId = {this.CustomerId}";
+            return $"Id: {this.Id}, Address = {this.Address},City = {this.City}, State = {this.State}, Payment = {this.Payment}, Cost = {this.Cost},  CustomerId = {this.CustomerEmail}";
         }
         public bool Equals(ShopOrder order)
         {
-            return this.Address == order.Address && this.City == order.City && this.State == order.State && this.Payment == order.Payment && this.Cost == order.Cost && this.LineItemId == order.LineItemId && this.CustomerId == order.CustomerId;
+            return this.Address == order.Address && this.City == order.City && this.State == order.State && this.Payment == order.Payment && this.Cost == order.Cost && this.CustomerEmail == order.CustomerEmail;
         }
         
     }
