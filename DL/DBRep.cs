@@ -61,6 +61,12 @@ namespace DL
             ).ToList();
 
         }
+
+        /// <summary>
+        /// Customer search, not used in this project
+        /// </summary>
+        /// <param name="queryStr"></param>
+        /// <returns></returns>
         public List<Customer> SearchACustomer(string queryStr)
         {
             return _context.Customers.Where(
@@ -76,6 +82,11 @@ namespace DL
             ).ToList();
         }
 
+        /// <summary>
+        /// Method to retrieve individual customer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Customer GetCustomerById(int id)
         {
             Customer custById =
@@ -92,6 +103,11 @@ namespace DL
             };
         }
 
+        /// <summary>
+        /// method to update changes in customer information
+        /// </summary>
+        /// <param name="custToUpdate"></param>
+        /// <returns></returns>
         public Customer UpdateCust(Customer custToUpdate)
         {
             Customer custUpdate = new Customer()
@@ -113,6 +129,11 @@ namespace DL
             };
         }
 
+        /// <summary>
+        /// Method for removinge customers from list
+        /// </summary>
+        /// <param name="id"></param>
+
         public void RemoveCustomer(int id)
         {
             Customer c = _context.Customers.FirstOrDefault(x =>x.Id == id);
@@ -124,6 +145,11 @@ namespace DL
 
         //Product and Store Stuff
 
+        /// <summary>
+        /// Addition of a new store
+        /// </summary>
+        /// <param name="store"></param>
+        /// <returns></returns>
         public Store AddStore(Store store)
         {
             Store storeAdd = new Store()
@@ -151,6 +177,10 @@ namespace DL
             };
         }
 
+        /// <summary>
+        /// Method to retrieve a list of stores to choose from
+        /// </summary>
+        /// <returns></returns>
         public List<Store> GetStores()
         {
             return _context.Stores
@@ -169,6 +199,11 @@ namespace DL
 
         }
 
+        /// <summary>
+        /// Method for changing details of a store
+        /// </summary>
+        /// <param name="storeUpdate"></param>
+        /// <returns></returns>
         public Store Updatestore(Store storeUpdate)
         {
             Store storetoUpdate = new Store()
@@ -196,6 +231,11 @@ namespace DL
             };
         }
 
+        /// <summary>
+        /// Method to retrieve one store and it's inventory
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         public Store GetStoreById(int id)
         {
@@ -205,6 +245,10 @@ namespace DL
                 .FirstOrDefault(r => r.Id == id);
         }
 
+        /// <summary>
+        /// Method for removing stores, not used but available
+        /// </summary>
+        /// <param name="id"></param>
 
         public void RemoveStore(int id)
         {
@@ -287,7 +331,11 @@ namespace DL
 
         }
 
-
+        /// <summary>
+        /// Method to retrieve a single product, used to add to cart
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Product GetProdById(int id)
         {
             return _context.Products
@@ -295,7 +343,11 @@ namespace DL
                 .FirstOrDefault(r => r.Id == id);
         }
 
-
+        /// <summary>
+        /// Updating stock of individual products
+        /// </summary>
+        /// <param name="itemToUpdate"></param>
+        /// <returns></returns>
         public Product UpdateItem(Product itemToUpdate)
         {
             Product itemUpdate = new Product()
@@ -323,6 +375,10 @@ namespace DL
             };
         }
 
+        /// <summary>
+        /// Method to remove item from a store
+        /// </summary>
+        /// <param name="id"></param>
         public void RemoveItem(int id)
         {
             Product c = _context.Products.FirstOrDefault(x => x.Id == id);
@@ -366,7 +422,11 @@ namespace DL
         }
 
 
-
+        /// <summary>
+        /// Method to search for specific orders, not implemented
+        /// </summary>
+        /// <param name="queryStr"></param>
+        /// <returns></returns>
         public List<Model.ShopOrder> SearchForOrder(string queryStr)
         {
             return _context.ShopOrders.Where(
@@ -386,6 +446,11 @@ namespace DL
             ).ToList();
         }
 
+        /// <summary>
+        /// Getting orders by Id, not implemented
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ShopOrder GetOrderById(int id)
         {
             ShopOrder orderById =
@@ -405,7 +470,10 @@ namespace DL
             };
         }
 
-
+        /// <summary>
+        /// Used to display all of the apps orders
+        /// </summary>
+        /// <returns></returns>
          public List<ShopOrder> GetAllOrders()
         {
             return _context.ShopOrders.Select(
@@ -426,6 +494,10 @@ namespace DL
 
         }
 
+        /// <summary>
+        /// Method to remove order form history
+        /// </summary>
+        /// <param name="id"></param>
         public void RemoveOrder(int id)
         {
             _context.ShopOrders.Remove(GetOrderById(id));
@@ -460,6 +532,10 @@ namespace DL
             };
         }
 
+        /// <summary>
+        /// Method to retrieve all LineItems, not implemented
+        /// </summary>
+        /// <returns></returns>
         public List<LineItem> GetLineItems()
         {
             return _context.LineItems.Select(
@@ -475,6 +551,11 @@ namespace DL
 
         }
 
+        /// <summary>
+        /// Method to retrieve single Line Item, not implemented
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public LineItem GetLineById(int id)
         {
             LineItem LineById =
@@ -491,12 +572,20 @@ namespace DL
             };
         }
 
+        /// <summary>
+        /// Retrieving list of lineitems based on OrderId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public List<LineItem> GetLineByOrderId(int id)
         {
             return _context.LineItems.Where(l => l.OrderId == id).Select(i => new LineItem()).ToList();
         }
 
-
+        /// <summary>
+        /// removing line items, not implemented
+        /// </summary>
+        /// <param name="id"></param>
         public void RemoveLineItem(int id)
         {
             _context.LineItems.Remove(GetLineById(id));
@@ -504,6 +593,11 @@ namespace DL
             _context.ChangeTracker.Clear();
         }
 
+
+        /// <summary>
+        /// Viewing a shopping cart
+        /// </summary>
+        /// <returns></returns>
         public List<Cart> GetCart()
         {
             return _context.Carts.Select(
@@ -522,6 +616,11 @@ namespace DL
 
         }
 
+        /// <summary>
+        /// Adding a product to the cart after selecting quantity
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
         public Cart AddtoCart(Cart cart)
         {
             Cart itemInCart = new Cart()
@@ -551,6 +650,12 @@ namespace DL
             };
         }
 
+        /// <summary>
+        /// Choosing specific items from the cart
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
         public Cart GetCartItemById(int id)
         {
             Cart cart =
@@ -569,6 +674,11 @@ namespace DL
 
             };
         }
+
+        /// <summary>
+        /// Removing items from the cart
+        /// </summary>
+        /// <param name="id"></param>
 
         public void RemoveCartItem(int id)
         {

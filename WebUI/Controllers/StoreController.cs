@@ -49,7 +49,7 @@ namespace WebUI.Controllers
                 if (ModelState.IsValid)
                 {
                     _bl.AddStore(store);
-                    Log.Information("The store {store} was created");
+                    Log.Information($"The store {store} was created");
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
@@ -100,6 +100,7 @@ namespace WebUI.Controllers
             try
             {
                 _bl.RemoveStore(id);
+                Log.Information($"Store with ID {id} was removed");
                 return RedirectToAction(nameof(Index));
             }
             catch

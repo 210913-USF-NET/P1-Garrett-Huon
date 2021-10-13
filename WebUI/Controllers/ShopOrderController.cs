@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Serilog;
 using StoreBL;
 using System;
 using System.Collections.Generic;
@@ -76,8 +77,8 @@ namespace WebUI.Controllers
                     _bl.RemoveCartItem(trash.Id);
                 }
                 
-               shopOrder.LineList = _bl.GetLineByOrderId((int)shopOrder.Id);
-
+                shopOrder.LineList = _bl.GetLineByOrderId((int)shopOrder.Id);
+                Log.Information($"A new order was created");
                 
                return RedirectToAction("Index", "Store");
                 

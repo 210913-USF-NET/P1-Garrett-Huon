@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DL;
 using Microsoft.AspNetCore.Routing;
+using Serilog;
 
 namespace WebUI.Controllers
 {
@@ -53,6 +54,7 @@ namespace WebUI.Controllers
                 if (ModelState.IsValid)
                 {
                     _bl.AddProduct(product);
+                    Log.Information($"New product {product} was created");
                     return RedirectToAction(nameof(Index), new {id = product.StoreId });
                 }
                 return View();
@@ -106,6 +108,7 @@ namespace WebUI.Controllers
             try
             {
                 _bl.RemoveItem(id);
+                Log.Information($"Product with ID {id} was removed");
                 return RedirectToAction(nameof(Index), new { id = product.StoreId });
             }
             catch

@@ -54,7 +54,7 @@ namespace WebUI.Controllers
                     if(check == false)
                     {
                     _bl.AddCustomers(customer);
-                    Log.Information("New Customer {customer} has been added.");
+                    Log.Information($"New Customer {customer} has been added.");
                     HttpContext.Response.Cookies.Append("CustUser", customer.Email.ToString());
                     HttpContext.Response.Cookies.Append("CustName", customer.Name);
                         return RedirectToAction("Index", "Home");
@@ -117,6 +117,7 @@ namespace WebUI.Controllers
             try
             {
                 _bl.RemoveCustomer(customer.Id);
+                Log.Information($"Customer {customer} was removed.");
                 return RedirectToAction(nameof(Index));
             }
             catch
